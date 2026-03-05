@@ -5,11 +5,20 @@ from aiogram import Bot, Dispatcher, types
 from aiogram.filters import Command
 from aiogram.utils.keyboard import InlineKeyboardBuilder
 from aiogram.types import FSInputFile
+from phrases import (
+    random_between, random_right, random_wrong,
+    random_start, random_end, random_joke
+)
+import glob
+
+FINAL_IMAGES = glob.glob("final_images/*")
 
 API_TOKEN = os.getenv("TELEGRAM_TOKEN") or "8760426828:AAFIIGAsDhQMWVol6TjjUVGa0OFNOLI4i1M"
 
 bot = Bot(token=API_TOKEN)
 dp = Dispatcher()
+
+
 
 QUESTIONS = [
     {
@@ -53,8 +62,37 @@ QUESTIONS = [
         "question": "В детстве было у всех..Ну почти у всех ☺?",
         "options": ["Сифон", "Космическая ракета", "Фигня какая-то"],
         "answer": "Сифон"
+    },
+    {
+        "image": "images/film.jpg",
+        "question": "Что это за штука, без которой раньше не было ни одной фотки?",
+        "options": ["Фотоплёнка", "Кассета VHS", "Батарейка AA"],
+        "answer": "Фотоплёнка"
+    },
+    {
+        "image": "images/pager.jpg",
+        "question": "Как называлась эта маленькая коробочка для сообщений?",
+        "options": ["Пейджер", "Мини-радио", "Калькулятор"],
+        "answer": "Пейджер"
+    },
+    {
+        "image": "images/dendy.jpg",
+        "question": "С какой приставки начинались игры у многих?",
+        "options": ["Dendy", "PlayStation 2", "Xbox"],
+        "answer": "Dendy"
     }
 ]
+
+
+GLOBAL_STATS = {
+    "total_users": 0,
+    "total_attempts": 0,
+    "scores": [],
+    "questions": {i: {"correct": 0, "total": 0} for i in range(len(QUESTIONS))}
+}
+
+ADMIN_ID = 315030219  # Мой ID
+
 
 WRONG_REACTIONS = [
     "Ой, почти! Но правильный ответ был другой. Зато вы — как SSD: ускоряете всё вокруг. 💫",
@@ -143,14 +181,30 @@ user_state = {}
 
 @dp.message(Command(commands=["start"]))
 async def cmd_start(message: types.Message):
-    user_state[message.from_user.id] = {"q": 0, "correct": 0}
+    await message.answer(random_start())
+    random_questions = random.sample(QUESTIONS, len(QUESTIONS))
+
+    user_state[message.from_user.id] = {
+        "q": 0,
+        "correct": 0,
+        "questions": random_questions
+    }
+
+    GLOBAL_STATS["total_attempts"] += 1
+    GLOBAL_STATS["total_users"] += 1
+
     await send_question(message.from_user.id)
+
 
 async def send_question(user_id: int):
     state = user_state.get(user_id)
     if state is None:
         return
-    q = QUESTIONS[state["q"]]
+
+    if random.random() < 0.4:
+        await bot.send_message(user_id, random_between())
+
+    q = state["questions"][state["q"]]
 
     kb = InlineKeyboardBuilder()
     for opt in q["options"]:
@@ -178,26 +232,114 @@ async def process_answer(callback: types.CallbackQuery):
         return
 
     choice = callback.data.split("|", 1)[1]
-    q = QUESTIONS[state["q"]]
+    q_index = state["q"]
+    q = state["questions"][q_index]
+
+    GLOBAL_STATS["questions"][q_index]["total"] += 1
 
     if choice == q["answer"]:
         state["correct"] += 1
-        await bot.send_message(user_id, "✅ Верно!")
+        GLOBAL_STATS["questions"][q_index]["correct"] += 1
+        await bot.send_message(user_id, f"✅ {random_right()}")
+
     else:
         reaction = random.choice(WRONG_REACTIONS)
-        await bot.send_message(user_id, f"❌ Неверно.\n{reaction}")
+        await bot.send_message(user_id, f"❌ {random_wrong()}")
+
 
     state["q"] += 1
     await callback.answer()
 
-    if state["q"] < len(QUESTIONS):
-        await asyncio.sleep(1)  # небольшая пауза перед следующим вопросом
-        await bot.send_message(user_id, "Следующий вопрос:")
+    if state["q"] < len(state["questions"]):
+        await asyncio.sleep(0.7)
         await send_question(user_id)
+
     else:
+        score = state["correct"]
+        GLOBAL_STATS["scores"].append(score)
+
         compliment = random.choice(COMPLIMENTS)
-        await bot.send_message(user_id, f"Квиз завершён!\nВаш результат: {state['correct']} из {len(QUESTIONS)}.\n\n{compliment}")
+        await bot.send_message(
+            user_id,
+            f"Квиз завершён!\nВаш результат: {score} из {len(state['questions'])}.\n\n{compliment}"
+        )
+
+
+        if FINAL_IMAGES:
+            img = FSInputFile(random.choice(FINAL_IMAGES))
+            await bot.send_photo(user_id, img)
+
+
+        kb = InlineKeyboardBuilder()
+        kb.button(text="📊 Статистика", callback_data="stats")
+        kb.button(text="🔁 Пройти ещё раз", callback_data="restart")
+        kb.adjust(1)
+
+        await bot.send_message(user_id, "Что дальше?", reply_markup=kb.as_markup())
+
         user_state.pop(user_id, None)
+
+
+@dp.callback_query(lambda c: c.data == "restart")
+async def restart_quiz(callback: types.CallbackQuery):
+    user_id = callback.from_user.id
+
+    random_questions = random.sample(QUESTIONS, len(QUESTIONS))
+    user_state[user_id] = {
+        "q": 0,
+        "correct": 0,
+        "questions": random_questions
+    }
+
+    GLOBAL_STATS["total_attempts"] += 1
+
+    await callback.answer()
+    await bot.send_message(user_id, "Начнём заново!")
+    await send_question(user_id)
+
+
+@dp.callback_query(lambda c: c.data == "stats")
+async def show_stats(callback: types.CallbackQuery):
+    await callback.answer()
+
+    total = GLOBAL_STATS["total_users"]
+    attempts = GLOBAL_STATS["total_attempts"]
+    avg = round(sum(GLOBAL_STATS["scores"]) / len(GLOBAL_STATS["scores"]), 2) if GLOBAL_STATS["scores"] else 0
+
+    question_stats = ""
+    for i, q in enumerate(QUESTIONS):
+        t = GLOBAL_STATS["questions"][i]["total"]
+        c = GLOBAL_STATS["questions"][i]["correct"]
+        pct = int((c / t) * 100) if t > 0 else 0
+        question_stats += f"{i+1}. {pct}%\n"
+
+    text = (
+        f"📊 Статистика квиза:\n"
+        f"— Участников: {total}\n"
+        f"— Всего попыток: {attempts}\n"
+        f"— Средний результат: {avg} из {len(QUESTIONS)}\n"
+        f"— Процент правильных по вопросам:\n{question_stats}"
+    )
+
+    await bot.send_message(callback.from_user.id, text)
+
+
+@dp.message(Command("admin"))
+async def admin_stats(message: types.Message):
+    if message.from_user.id != ADMIN_ID:
+        return
+
+    total = GLOBAL_STATS["total_users"]
+    attempts = GLOBAL_STATS["total_attempts"]
+    avg = round(sum(GLOBAL_STATS["scores"]) / len(GLOBAL_STATS["scores"]), 2) if GLOBAL_STATS["scores"] else 0
+
+    await message.answer(
+        f"Админ‑панель:\n"
+        f"Пользователей: {total}\n"
+        f"Попыток: {attempts}\n"
+        f"Средний результат: {avg}"
+    )
+
 
 
 async def main():

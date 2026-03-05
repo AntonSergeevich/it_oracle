@@ -1,0 +1,31 @@
+{
+  "feedback": [
+    {
+      "id": 1,
+      "time": "2026-03-07T19:47:54.356338",
+      "anonymous": false,
+      "user_id": 315030219,
+      "username": "Anton Glukhov",
+      "text": "Супер, спасибо ❤️",
+      "handled": false
+    },
+    {
+      "id": 2,
+      "time": "2026-03-07T20:02:20.305606+00:00",
+      "anonymous": false,
+      "user_id": 315030219,
+      "username": "Anton Glukhov",
+      "text": "фвфывфыв",
+      "handled": false
+    },
+    {
+      "id": 3,
+      "time": "2026-03-07T20:02:38.646467+00:00",
+      "anonymous": true,
+      "user_id": null,
+      "username": null,
+      "text": "фывфыв",
+      "handled": false
+    }
+  ]
+}

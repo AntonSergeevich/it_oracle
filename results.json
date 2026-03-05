@@ -1,0 +1,199 @@
+{
+  "total": 4,
+  "profiles": [
+    {
+      "name": "Anton Glukhov",
+      "percents": {
+        "Extraversion": 60.0,
+        "Agreeableness": 70.0,
+        "Conscientiousness": 66.7,
+        "Neuroticism": 60.0,
+        "Openness": 60.0
+      },
+      "dominant": "Agreeableness",
+      "answers_meta": [
+        {
+          "id": 8,
+          "text": "Я аккуратен и слежу за порядком.",
+          "scale": "Conscientiousness",
+          "value": 3
+        },
+        {
+          "id": 8,
+          "text": "Я аккуратен и слежу за порядком.",
+          "scale": "Conscientiousness",
+          "value": 4
+        },
+        {
+          "id": 7,
+          "text": "Я доверяю людям, пока они не доказали обратное.",
+          "scale": "Agreeableness",
+          "value": 4
+        },
+        {
+          "id": 3,
+          "text": "Я люблю планировать и доводить дела до конца.",
+          "scale": "Conscientiousness",
+          "value": 3
+        },
+        {
+          "id": 5,
+          "text": "Мне нравится пробовать новые идеи и занятия.",
+          "scale": "Openness",
+          "value": 3
+        },
+        {
+          "id": 6,
+          "text": "Я предпочитаю тихие вечера дома.",
+          "scale": "Extraversion",
+          "value": 3
+        },
+        {
+          "id": 2,
+          "text": "Я легко сочувствую другим людям.",
+          "scale": "Agreeableness",
+          "value": 3
+        },
+        {
+          "id": 11,
+          "text": "Я легко завожу новые знакомства.",
+          "scale": "Extraversion",
+          "value": 3
+        },
+        {
+          "id": 4,
+          "text": "Я часто переживаю и волнуюсь по пустякам.",
+          "scale": "Neuroticism",
+          "value": 3
+        },
+        {
+          "id": 9,
+          "text": "Я склонен к перепадам настроения.",
+          "scale": "Neuroticism",
+          "value": 3
+        }
+      ]
+    },
+    {
+      "user_id": 315030219,
+      "profile": {
+        "percents": {
+          "Extraversion": 60.0,
+          "Agreeableness": 70.0,
+          "Conscientiousness": 66.7,
+          "Neuroticism": 60.0,
+          "Openness": 60.0
+        },
+        "levels": {
+          "Extraversion": "Средний",
+          "Agreeableness": "Высокий",
+          "Conscientiousness": "Высокий",
+          "Neuroticism": "Средний",
+          "Openness": "Средний"
+        },
+        "dominant": "Agreeableness",
+        "profile_text": "Твой игровой профиль (Big Five, шутливый формат):\n\n- Extraversion: 60.0% — Средний\n- Agreeableness: 70.0% — Высокий\n- Conscientiousness: 66.7% — Высокий\n- Neuroticism: 60.0% — Средний\n- Openness: 60.0% — Средний\n\nДоминирующая черта: Agreeableness\nДоброжелательный‑Обнимашка: Ты — ходячая аптека для души. Люди идут к тебе за советом и печеньем. Не забывай про границы.\n\nСовет: учись говорить «нет» с улыбкой — это тоже искусство."
+      }
+    },
+    {
+      "name": "Anton Glukhov",
+      "percents": {
+        "Extraversion": 60.0,
+        "Agreeableness": 60.0,
+        "Conscientiousness": 60.0,
+        "Neuroticism": 60.0,
+        "Openness": 60.0
+      },
+      "dominant": "Extraversion",
+      "answers_meta": [
+        {
+          "id": 3,
+          "text": "Я люблю планировать и доводить дела до конца. 📋",
+          "scale": "Conscientiousness",
+          "value": 3
+        },
+        {
+          "id": 1,
+          "text": "Мне нравится быть в центре внимания. ✨",
+          "scale": "Extraversion",
+          "value": 3
+        },
+        {
+          "id": 4,
+          "text": "Я часто переживаю и волнуюсь по пустякам. 🌧️",
+          "scale": "Neuroticism",
+          "value": 3
+        },
+        {
+          "id": 8,
+          "text": "Я аккуратен и слежу за порядком. 🧺",
+          "scale": "Conscientiousness",
+          "value": 3
+        },
+        {
+          "id": 7,
+          "text": "Я доверяю людям, пока они не доказали обратное. 🛡️",
+          "scale": "Agreeableness",
+          "value": 3
+        },
+        {
+          "id": 11,
+          "text": "Я легко завожу новые знакомства. 💬",
+          "scale": "Extraversion",
+          "value": 3
+        },
+        {
+          "id": 5,
+          "text": "Мне нравится пробовать новые идеи и занятия. 🎨",
+          "scale": "Openness",
+          "value": 3
+        },
+        {
+          "id": 9,
+          "text": "Я склонен к перепадам настроения. 🎭",
+          "scale": "Neuroticism",
+          "value": 3
+        },
+        {
+          "id": 12,
+          "text": "Я готов помочь даже незнакомцу. 🤲",
+          "scale": "Agreeableness",
+          "value": 3
+        },
+        {
+          "id": 15,
+          "text": "Я люблю придумывать новые способы решения задач. 💡",
+          "scale": "Openness",
+          "value": 3
+        }
+      ]
+    },
+    {
+      "user_id": 315030219,
+      "profile": {
+        "percents": {
+          "Extraversion": 60.0,
+          "Agreeableness": 60.0,
+          "Conscientiousness": 60.0,
+          "Neuroticism": 60.0,
+          "Openness": 60.0
+        },
+        "levels": {
+          "Extraversion": "Средний",
+          "Agreeableness": "Средний",
+          "Conscientiousness": "Средний",
+          "Neuroticism": "Средний",
+          "Openness": "Средний"
+        },
+        "dominant": "Extraversion",
+        "profile_text": "💖 *Твой игровой профиль (Big Five, шутливый формат):*\n\n✨ *Extraversion*: 60.0% — _Средний_\n🌷 *Agreeableness*: 60.0% — _Средний_\n📋 *Conscientiousness*: 60.0% — _Средний_\n🕊️ *Neuroticism*: 60.0% — _Средний_\n🎨 *Openness*: 60.0% — _Средний_\n\n🏅 *Доминирующая черта*: *Extraversion*\n✨ *Солнечная общительность*: Ты — душа компании и вдохновляешь людей вокруг. Твоя энергия заразительна; рядом с тобой хочется смеяться и жить ярче. 💃🌟\n\n💬 *Комплимент для тебя:* Твоя улыбка — магнит для хороших людей. 😊\nСовет: выдели минуту для себя — и твоя энергия станет ещё чище. ☕🌿\n\n🌸 *Ты заслуживаешь заботы и маленьких радостей каждый день.*"
+      }
+    }
+  ],
+  "button_clicks": {
+    "Получить предсказание": 2,
+    "Получить 3 предсказания": 2,
+    "Аффирмация дня": 3
+  },
+  "subscribers": []
+}

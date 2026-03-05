@@ -1,1 +1,5 @@
 aiogram
+aiohttp
+aiofiles
+beautifulsoup4
+Pillow

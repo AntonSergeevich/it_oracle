@@ -42,7 +42,7 @@ START_IMAGES_DIR = Path(__file__).parent / "start_images"
 FEEDBACK_FILE = Path(__file__).parent / "feedback.json"
 RESULTS_FILE = Path(__file__).parent / "results.json"
 # Замените на ваш Telegram user_id (целое число), например {123456789}
-ADMIN_IDS = {123456789}
+ADMIN_IDS = {315030219}
 
 # --- persistent keyboard (добавлены кнопки "Написать автору" и "Статистика") ---
 MAIN_KEYBOARD = ReplyKeyboardMarkup(

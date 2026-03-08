@@ -461,7 +461,19 @@ async def handle_feedback_text(message: Message):
         await message.answer("Спасибо! Ваше сообщение отправлено автору. 💌")
     # уведомление админу (короткое)
     try:
-        admin_note = f"Новое сообщение #{entry['id']} (анонимно)" if entry["anonymous"] else f"Новое сообщение #{entry['id']} от {entry.get('username')}"
+        if entry["anonymous"]:
+            admin_note = (
+                f"Новое сообщение #{entry['id']} (анонимно)\n"
+                f"Текст:\n{entry['text']}"
+            )
+        else:
+            admin_note = (
+                f"Новое сообщение #{entry['id']} от {entry.get('username')} (id: {entry.get('user_id')})\n"
+                f"Текст:\n{entry['text']}"
+            )
+
+        await _notify_admins_short(message.bot, admin_note)
+
         bot = message.bot
         for aid in ADMIN_IDS:
             try:
